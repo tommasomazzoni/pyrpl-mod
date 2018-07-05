@@ -104,7 +104,7 @@ class Pid(FilterModule):
                       doc="pid proportional gain [1]")
     i = GainRegister(0x10C, bits=_GAINBITS, norm= 2 **_ISR * 2.0 * np.pi * 8e-9,
                       doc="pid integral unity-gain frequency [Hz]")
-    d = GainRegister(0x110, bits=_GAINBITS, norm= 2 ** _DSR *( 2.0 *np. pi * 8e-9),
+    d = GainRegister(0x110, bits=_GAINBITS, norm= 2 ** _DSR /( 2.0 *np. pi * 8e-9),
                       invert=False,
                       doc="pid derivative 1/unity-gain frequency [1/Hz]. Off when 0.")
     
