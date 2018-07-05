@@ -106,7 +106,7 @@ class Pid(FilterModule):
                       doc="pid integral unity-gain frequency [Hz]")
     d = GainRegister(0x110, bits=_GAINBITS, norm= 2 ** _DSR *( 2.0 *np. pi * 8e-9),
                       invert=False,
-                      doc="pid derivative unity-gain frequency [Hz]. Off when 0.")
+                      doc="pid derivative 1/unity-gain frequency [1/Hz]. Off when 0.")
     
     reset_ival = BoolProperty(doc="set ival to -(+)reset_val if it reaches max(min)")
     
