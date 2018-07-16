@@ -302,7 +302,7 @@ class OutputSignal(Signal):
         # multiply by PID transfer function to get the loop transfer function
         # same as Pid.transfer_function(freqs) but avoids reading registers form FPGA
         result = analog_tf * Pid._transfer_function(
-            freqs, p=self.p, i=self.i,
+            freqs, p=self.p, i=self.i, d=self.d,
             frequency_correction=self.pid._frequency_correction,
             filter_values=self.additional_filter)
         return result

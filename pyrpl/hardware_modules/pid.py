@@ -1,6 +1,6 @@
 import numpy as np
 from qtpy import QtCore
-from ..attributes import FloatProperty, FloatRegister, GainRegister, BoolProperty
+from ..attributes import FloatProperty, FloatRegister, GainRegister, BoolRegister
 from ..modules import SignalLauncher
 from . import FilterModule
 from ..widgets.module_widgets import PidWidget
@@ -10,26 +10,9 @@ class IValAttribute(FloatProperty):
     """
     Attribute for integrator value
     """
-    def __init__(self,
-                 reset=False,
-                 reset_value=1,
-                 **kwargs):
-        self.reset = reset
-        self.reset_value = reset_value
-        FloatProperty.__init__(self, **kwargs)
-        
     def get_value(self, obj):
-        red_value = float(obj._to_pyint(obj._read(0x100), bitlength=16)) / 2 ** 13
-        reset_ival = self.reset.get_value(obj)
-        reset_value = self.reset_value.get_value(obj)
-        maxx = 1 - self.increment
-        minn = -1
-        if reset_ival==True and red_value>maxx:
-            self.set_value(obj, -abs(reset_value))
-        elif reset_ival==True and red_value<minn:
-            self.set_value(obj, abs(reset_value))
-        return red_value
-
+        return float(obj._to_pyint(obj._read(0x100), bitlength=16))\
+               / 2 ** 13
         # bitlength used to be 32 until 16/7/2016
         # still, FPGA has an asymmetric representation for reading and writing
         # from/to this register
@@ -47,7 +30,7 @@ class SignalLauncherPid(SignalLauncher):
     def __init__(self, module):
         super(SignalLauncherPid, self).__init__(module)
         self.timer_ival = QtCore.QTimer()
-        self.timer_ival.setInterval(1)  # in ms
+        self.timer_ival.setInterval(1000)  # in ms
         self.timer_ival.timeout.connect(self.update_ival)
         self.timer_ival.setSingleShot(False)
         self.timer_ival.start()
@@ -71,8 +54,10 @@ class Pid(FilterModule):
                          "d",
                          "inputfilter",
                          "max_voltage",
-                         "min_voltage"]
-    _gui_attributes = _setup_attributes + ["ival", "reset_ival", "reset_value"]
+                         "min_voltage",
+                         "reset_ival",
+                         "reset_value"]
+    _gui_attributes = _setup_attributes + ["ival"]
 
     # the function is here so the metaclass generates a setup(**kwds) function
     def _setup(self):
@@ -88,7 +73,7 @@ class Pid(FilterModule):
 
     _ISR = 32  # Register(0x204)
 
-    _DSR = 10  # Register(0x208)
+    _DSR = 8   # Register(0x208)
 
     _GAINBITS = 24  # Register(0x20C)
 
@@ -104,17 +89,17 @@ class Pid(FilterModule):
                       doc="pid proportional gain [1]")
     i = GainRegister(0x10C, bits=_GAINBITS, norm= 2 **_ISR * 2.0 * np.pi * 8e-9,
                       doc="pid integral unity-gain frequency [Hz]")
+
     d = GainRegister(0x110, bits=_GAINBITS, norm= 2 ** _DSR /( 2.0 *np. pi * 8e-9),
                       invert=False,
                       doc="pid derivative 1/unity-gain frequency [1/Hz]. Off when 0.")
+    reset_ival = BoolRegister(0x134, doc="set ival to -(+)reset_val if it reaches max(min)")
     
-    reset_ival = BoolProperty(doc="set ival to -(+)reset_val if it reaches max(min)")
+    reset_value = FloatRegister(0x130, min=0, max=1, bits=14, norm= 2 **13,
+                                signed=False,
+                                doc="reset ival to this value (with right sign)")
     
-    reset_value = FloatProperty(min=0, max=4, increment= 8. / 2**16,
-                             doc="reset i_val to this value (with right sign)")
-    
-    ival = IValAttribute(reset=reset_ival, reset_value=reset_value, min=-4, max=4, 
-                         increment= 8. / 2**16,
+    ival = IValAttribute(min=-4, max=4, increment= 8. / 2**16,
         doc="current value of the integrator memory (i.e. pid output voltage offset)")
 
 

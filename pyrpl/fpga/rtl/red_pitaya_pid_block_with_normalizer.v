@@ -65,7 +65,7 @@ module red_pitaya_pid_block #(
    //parameters for gain control (binary points and total bitwidth)
    parameter     PSR = 12         ,
    parameter     ISR = 32         ,//official redpitaya: 18
-   parameter     DSR = 10         ,
+   parameter     DSR = 8          ,//official redpitaya: 10
    parameter     GAINBITS = 24    ,
    parameter     DERIVATIVE = 1   , //disables differential gain if 0
    

@@ -431,7 +431,6 @@ class RedPitaya(object):
         self.ssh.channel.close()
 
     def end_all(self):
-        print('ooooooooo')
         self.end()
         self.end_ssh()
 
