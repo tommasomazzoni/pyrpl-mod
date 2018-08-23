@@ -352,7 +352,7 @@ red_pitaya_saturate #( .BITS_IN (IIRSIGNALBITS+4), .SHIFT(SIGNALSHIFT), .BITS_OU
 
 
 reg signed [SIGNALBITS-1:0] signal_o;
-
+/* 
 always @(posedge clk_i) begin
     // minimum delay implementation samples continuously new data
     x0 <= dat_i_filtered;
@@ -439,5 +439,5 @@ always @(posedge clk_i) begin
     end
     dat_o <= (shortcut==1'b1) ? dat_i_filtered[SIGNALSHIFT+SIGNALBITS-1:SIGNALSHIFT] : signal_o;
 end
-
+ */
 endmodule

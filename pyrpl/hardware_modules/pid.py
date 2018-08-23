@@ -93,10 +93,10 @@ class Pid(FilterModule):
     d = GainRegister(0x110, bits=_GAINBITS, norm= 2 ** _DSR /( 2.0 *np. pi * 8e-9),
                       invert=False,
                       doc="pid derivative 1/unity-gain frequency [1/Hz]. Off when 0.")
+    
     reset_ival = BoolRegister(0x134, doc="set ival to -(+)reset_val if it reaches max(min)")
     
     reset_value = FloatRegister(0x130, min=0, max=1, bits=14, norm= 2 **13,
-                                signed=False,
                                 doc="reset ival to this value (with right sign)")
     
     ival = IValAttribute(min=-4, max=4, increment= 8. / 2**16,

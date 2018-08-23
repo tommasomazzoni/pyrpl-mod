@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2015.4 (win64) Build 1412921 Wed Nov 18 09:43:45 MST 2015
-| Date             : Mon Jul 16 10:32:54 2018
+| Date             : Thu Aug 23 18:33:20 2018
 | Host             : SYRTEPC068 running 64-bit Service Pack 1  (build 7601)
 | Command          : report_power -file out/post_synth_power.rpt
 | Design           : red_pitaya_top
@@ -30,12 +30,12 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 2.341 |
-| Dynamic (W)              | 2.188 |
-| Device Static (W)        | 0.153 |
+| Total On-Chip Power (W)  | 2.328 |
+| Dynamic (W)              | 2.175 |
+| Device Static (W)        | 0.152 |
 | Effective TJA (C/W)      | 11.5  |
-| Max Ambient (C)          | 58.0  |
-| Junction Temperature (C) | 52.0  |
+| Max Ambient (C)          | 58.2  |
+| Junction Temperature (C) | 51.8  |
 | Confidence Level         | Low   |
 | Setting File             | ---   |
 | Simulation Activity File | ---   |
@@ -49,25 +49,25 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.075 |       15 |       --- |             --- |
-| Slice Logic              |     0.143 |    36515 |       --- |             --- |
-|   LUT as Logic           |     0.121 |    17316 |     17600 |           98.39 |
-|   CARRY4                 |     0.016 |     1464 |      4400 |           33.27 |
-|   Register               |     0.006 |    14076 |     35200 |           39.99 |
-|   F7/F8 Muxes            |    <0.001 |      522 |     17600 |            2.97 |
-|   LUT as Shift Register  |    <0.001 |       72 |      6000 |            1.20 |
-|   Others                 |     0.000 |      445 |       --- |             --- |
+| Clocks                   |     0.071 |       15 |       --- |             --- |
+| Slice Logic              |     0.136 |    31039 |       --- |             --- |
+|   LUT as Logic           |     0.115 |    15594 |     17600 |           88.60 |
+|   CARRY4                 |     0.016 |     1392 |      4400 |           31.64 |
+|   Register               |     0.005 |    10740 |     35200 |           30.51 |
+|   F7/F8 Muxes            |    <0.001 |      494 |     17600 |            2.81 |
+|   LUT as Shift Register  |    <0.001 |       71 |      6000 |            1.18 |
+|   Others                 |     0.000 |      429 |       --- |             --- |
 |   BUFG                   |     0.000 |        1 |        32 |            3.13 |
 |   LUT as Distributed RAM |     0.000 |       24 |      6000 |            0.40 |
-| Signals                  |     0.141 |    31000 |       --- |             --- |
+| Signals                  |     0.134 |    25242 |       --- |             --- |
 | Block RAM                |     0.103 |       34 |        60 |           56.67 |
 | PLL                      |     0.097 |        1 |         2 |           50.00 |
-| DSPs                     |     0.044 |       49 |        80 |           61.25 |
+| DSPs                     |     0.049 |       37 |        80 |           46.25 |
 | I/O                      |     0.288 |       95 |       100 |           95.00 |
 | XADC                     |     0.004 |        1 |       --- |             --- |
 | PS7                      |     1.292 |        1 |       --- |             --- |
-| Static Power             |     0.153 |          |           |                 |
-| Total                    |     2.340 |          |           |                 |
+| Static Power             |     0.152 |          |           |                 |
+| Total                    |     2.327 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -77,7 +77,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.515 |       0.505 |      0.011 |
+| Vccint    |       1.000 |     0.503 |       0.492 |      0.011 |
 | Vccaux    |       1.800 |     0.069 |       0.057 |      0.012 |
 | Vcco33    |       3.300 |     0.085 |       0.084 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
@@ -90,7 +90,7 @@ Table of Contents
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccpint   |       1.000 |     0.717 |       0.678 |      0.039 |
+| Vccpint   |       1.000 |     0.716 |       0.678 |      0.039 |
 | Vccpaux   |       1.800 |     0.038 |       0.027 |      0.010 |
 | Vccpll    |       1.800 |     0.017 |       0.014 |      0.003 |
 | Vcco_ddr  |       1.500 |     0.356 |       0.354 |      0.002 |
@@ -165,15 +165,15 @@ Table of Contents
 +----------------------------------------------------------------------------------+-----------+
 | Name                                                                             | Power (W) |
 +----------------------------------------------------------------------------------+-----------+
-| red_pitaya_top                                                                   |     2.187 |
+| red_pitaya_top                                                                   |     2.175 |
 |   i_ams                                                                          |     0.001 |
-|   i_asg                                                                          |     0.060 |
+|   i_asg                                                                          |     0.061 |
 |     adv_trig_a                                                                   |     0.002 |
 |     adv_trig_b                                                                   |     0.002 |
 |     ch[0]                                                                        |     0.025 |
 |     ch[1]                                                                        |     0.025 |
 |     prng                                                                         |     0.002 |
-|   i_dsp                                                                          |     0.342 |
+|   i_dsp                                                                          |     0.327 |
 |     dac_saturate[0]                                                              |    <0.001 |
 |     dac_saturate[1]                                                              |    <0.001 |
 |     genblk2[0].i_pid                                                             |     0.027 |
@@ -197,17 +197,9 @@ Table of Contents
 |     genblk3[3].i_trigger                                                         |     0.008 |
 |       triggerfilter                                                              |     0.003 |
 |         genblk2[0].lpf                                                           |     0.003 |
-|     genblk4[4].iir                                                               |     0.028 |
-|       iir_inputfilter                                                            |     0.002 |
-|         genblk2[0].lpf                                                           |     0.002 |
-|       p_ay1_module                                                               |    <0.001 |
-|       p_ay2_module                                                               |    <0.001 |
-|       p_by0_module                                                               |    <0.001 |
-|       p_by1_module                                                               |    <0.001 |
-|       s_dat_o_module                                                             |    <0.001 |
-|       s_y0_module                                                                |    <0.001 |
-|       s_z0_module                                                                |    <0.001 |
-|     genblk5[5].iq                                                                |     0.061 |
+|     genblk4[4].iir                                                               |     0.010 |
+|       p_ay1_module                                                               |     0.009 |
+|     genblk5[5].iq                                                                |     0.062 |
 |       demodulator                                                                |     0.004 |
 |       inputfilter                                                                |     0.003 |
 |         genblk2[0].lpf                                                           |     0.003 |
@@ -224,7 +216,7 @@ Table of Contents
 |         i0_product_and_sat                                                       |     0.002 |
 |         sumsaturation                                                            |    <0.001 |
 |       pfd_block                                                                  |    <0.001 |
-|     genblk5[6].iq                                                                |     0.061 |
+|     genblk5[6].iq                                                                |     0.062 |
 |       demodulator                                                                |     0.004 |
 |       inputfilter                                                                |     0.003 |
 |         genblk2[0].lpf                                                           |     0.003 |
@@ -241,17 +233,17 @@ Table of Contents
 |         i0_product_and_sat                                                       |     0.002 |
 |         sumsaturation                                                            |    <0.001 |
 |       pfd_block                                                                  |    <0.001 |
-|     genblk6[7].iq_2_outputs                                                      |     0.082 |
+|     genblk6[7].iq_2_outputs                                                      |     0.084 |
 |       demodulator                                                                |     0.004 |
 |       inputfilter                                                                |     0.003 |
 |         genblk2[0].lpf                                                           |     0.003 |
 |       iq_fgen                                                                    |     0.018 |
 |       iqfilter[0]                                                                |     0.018 |
 |         genblk2[0].lpf                                                           |     0.005 |
-|         genblk2[1].lpf                                                           |     0.004 |
-|         genblk2[2].lpf                                                           |     0.004 |
+|         genblk2[1].lpf                                                           |     0.005 |
+|         genblk2[2].lpf                                                           |     0.005 |
 |         genblk2[3].lpf                                                           |     0.005 |
-|       iqfilter[1]                                                                |     0.018 |
+|       iqfilter[1]                                                                |     0.019 |
 |         genblk2[0].lpf                                                           |     0.005 |
 |         genblk2[1].lpf                                                           |     0.005 |
 |         genblk2[2].lpf                                                           |     0.005 |
@@ -375,7 +367,7 @@ Table of Contents
 |             SOFT_RESET_I                                                         |    <0.001 |
 |         xlconstant                                                               |     0.000 |
 |           inst                                                                   |     0.000 |
-|   i_scope                                                                        |     0.054 |
+|   i_scope                                                                        |     0.055 |
 |   pll                                                                            |     0.097 |
 |   pwm[0]                                                                         |     0.002 |
 |   pwm[1]                                                                         |     0.002 |

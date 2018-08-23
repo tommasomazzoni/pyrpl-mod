@@ -236,14 +236,18 @@ always @(posedge clk_i) begin
       ki_mult <= $signed(error) * $signed(set_ki) ;
       if (ival_write)
          int_reg <= { {IBW-16-ISR{set_ival[16-1]}},set_ival[16-1:0],{ISR{1'b0}}};
-      else if (int_sum[IBW+1-1:IBW+1-2] == 2'b01) //normal positive saturation
+       else if (int_sum[IBW+1-1:IBW+1-2] == 2'b01) //normal positive saturation
          int_reg <= {1'b0,{IBW-1{1'b1}}};
       else if (int_sum[IBW+1-1:IBW+1-2] == 2'b10) // negative saturation
          int_reg <= {1'b1,{IBW-1{1'b0}}};
-	  else if ((reset_ival)&&(pid_out > out_max)) // reset ival to +reset_value when output saturate to negative value
+	  else if ((reset_ival)&&(pid_out >= out_max)&&(-$signed(reset_value) > out_min))
 	     int_reg <= {-$signed({2'b00,reset_value}),{ISR{1'b0}}};
-	  else if ((reset_ival)&&(pid_out < out_min)) // reset ival to -reset_value when output saturate to positive value
+	  else if ((reset_ival)&&(pid_out >= out_max)&&(-$signed(reset_value) <= out_min))
+	     int_reg <= {{{16-14{out_min[13]}},out_min[13:0]}+{15'b0,1'b1},{ISR{1'b0}}};
+	  else if ((reset_ival)&&(pid_out <= out_min)&&($signed(reset_value) < out_max))
 	     int_reg <= {$signed({2'b00,reset_value}),{ISR{1'b0}}};
+	  else if ((reset_ival)&&(pid_out <= out_min)&&($signed(reset_value) >= out_max))
+	     int_reg <= {{{16-14{out_max[13]}},out_max[13:0]}-{15'b0,1'b1},{ISR{1'b0}}};
       else
          int_reg <= int_sum[IBW-1:0]; // use sum as it is
    end
